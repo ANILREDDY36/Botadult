@@ -1,0 +1,191 @@
+<div class="user_info gray_bg">
+  <div class="container">
+    <div class="white_bg">
+      <div class="row">
+        <div class="col-lg-3 col-sm-4">
+          <div class="user_details">
+            <div class="user_image">
+              <%= link_to root_path do %>
+                <%= image_tag "default.jpg" %>
+              <% end %>
+            </div>
+            <div class="user_menu">
+              <ul>
+                <li><a href="#"><i class="fa fa-user"></i>Personal</a></li>
+                <li><a href="#"><i class="fa fa-edit"></i>My ad</a></li>
+                <li><a href="#"><i class="fa fa-medkit"></i>My health</a></li>
+                <li><a href="#"><i class="fa fa-id-card"></i>Identification</a></li>
+                <li><a href="#"><i class="fa fa-bell-o"></i>Notification</a></li>
+                <li><a href="#"><i class="fa fa-cog"></i>Security</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-sm-8">
+          <div class="user_form">
+            <section id="tabs">
+              <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"> <a class="nav-item nav-link active" id="nav-personal-tab" data-toggle="tab" href="#nav-personal" role="tab" aria-controls="nav-personal" aria-selected="true">Personal</a> <a class="nav-item nav-link" id="nav-medical-tab" data-toggle="tab" href="#nav-medical" role="tab" aria-controls="nav-medical" aria-selected="false">Medical</a> <a class="nav-item nav-link" id="nav-identification-tab" data-toggle="tab" href="#nav-identification" role="tab" aria-controls="nav-identification" aria-selected="false">Identification</a> </div>
+              </nav>
+              <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+                  <div class="user_data">
+                  	<%= form_for @userdetails, :url => { :action => "create" }, remote: true do |f| %>
+						          <div class="user_name"> <i class="fa fa-user"></i>
+							         <%= f.text_field :user_name, class: "form-control", placeholder: "Username" %>
+                      </div>
+                      <div class="custom_dropdown">
+                        <div class="row">
+                          <div class="col-lg-4 col-sm-4">
+                            <div class="dropdown_box">
+  							              <%= f.date_select :birthday, prompt: { day: t('.day'), month: t('.month'), year: t('.year') }, start_year: Date.today.year, end_year: Date.today.year - 100, order: [:month, :day, :year]%>
+                            </div>
+                          </div>    
+  						          </div>
+  					          </div>
+                      <div class="user_call"> <i class="fa fa-phone"></i>
+                        <input type="text" class="form-control" placeholder="(781) 123 13-4561">
+                      </div>
+                      <div class="user_msg"> <i class="fa fa-envelope"></i>
+                        <input type="email" class="form-control" placeholder="Email Address">
+                      </div>
+                      <div class="custom_dropdown">
+                        <div class="row">
+                          <div class="col-lg-6 col-sm-6">
+                            <div class="dropdown_box">
+              					      <%= f.label :country %>
+                              <%= f.select :country, CS.countries%>
+                              <%= f.label :state %>
+                              <%= f.select :state, CS.states(:IN)%>
+                              <%= f.label :city %>
+                              <%= f.select :city, CS.cities(:AP, :IN)%></br>
+                            </div>
+                          </div>
+                        </div>
+                      </div>        
+						          <%= f.submit "Submit", class: "button" %>
+					          <% end %>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="nav-medical" role="tabpanel" aria-labelledby="nav-medical-tab">
+                  <div class="user_data">
+                    <%= form_for @user_details, :url => { :action => "create" }, remote: true do |f| %>
+                      <div class="custom_dropdown">
+                        <h4 class="sub_ttl">When was the last time you check your status?</h4>
+                        <div class="row">
+                          <%= f.date_select :birthday, prompt: { day: t('.day'), month: t('.month'), year: t('.year') }, start_year: Date.today.year, end_year: Date.today.year - 100, order: [:month, :day, :year]%>
+                        </div>
+                      </div>
+                      <div class="custom_dropdown medical_block">
+                        <h4 class="sub_ttl">If so, whaat was the result?</h4>
+                        <div class="row">
+                          <%= f.select :medical_status_result, options_for_select(User.medical_status_results.keys.map { |w| [w.humanize, w]}, @user_details.medical_status_result), class: "results_order" %>
+                        </div>
+                      </div>
+                      <div class="custom_dropdown medical_block">
+                        <h4 class="sub_ttl">Upload result</h4>
+                        <div class="row">
+                          <%= f.file_field :medical_status %>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <p>Ad with status is listed under "Sin City Zone" and makes people feel safe.</p>
+                      </div>
+                      <div class="save_cancel_btn">
+                        <div class="row">
+                          <div class="col-lg-6 col">
+                            <button class="button" type="submit">Cancel</button>
+                          </div>
+                          <div class="col-lg-6 col">
+                            <%= f.submit "Submit", class: "button" %>
+                            <!-- <button class="button" type="submit">Save</button> -->
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="nav-identification" role="tabpanel" aria-labelledby="nav-identification-tab">
+                  <div class="user_data user_identification">
+                    <%= form_for @user_details, :url => { :action => "create" }, remote: true do |f| %>
+                      <h4 class="sub_ttl">To protect minors and prevents fake ads, please upload a government issued identification.</h4>
+                      <div class="identity_radio">
+                        <div class="row">
+                          <div class="col-lg-4 col-sm-4">
+                            <%= f.radio_button :proof_type, 'driving_licence' %>
+                            <%= f.label :Driving_License%>
+                          </div>
+                          <div class="col-lg-4 col-sm-4">
+                            <%= f.radio_button :proof_type, 'passport' %>
+                            <%= f.label :Passport%>
+                          </div>
+                          <div class="col-lg-4 col-sm-4">
+                            <%= f.radio_button :proof_type, 'state_id' %>
+                            <%= f.label :State_ID%>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="identi_block">
+                        <h4 class="sub_ttl">Upload Front Side</h4>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <!-- <div class="custom_fileupload"> -->
+                              <%= f.file_field :proof_type_front %>
+                              <%= f.label :Front_side %>
+                            <!-- </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="identi_block">
+                        <h4 class="sub_ttl">Upload ID again while you hold it	</h4>
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <!-- <div class="custom_fileupload"> -->
+                              <%= f.file_field :proof_type_back %>
+                              <%= f.label :Back_side %>
+                            <!-- </div> -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <p>This data is used only for age and identity's verification.</p>
+                      </div>
+                      <div class="save_cancel_btn">
+                        <div class="row">
+                          <div class="col-lg-6 col">
+                            <button class="button" type="submit">Cancel</button>
+                          </div>
+                          <div class="col-lg-6 col">
+                            <%= f.submit "Submit", class: "button" %>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // $( "#user_country" ).click(function() {
+  //   var country = $("#user_country").val();
+  //   var state = $("#user_state").value = country;
+  //   console.log(country);
+  //   console.log("1111111111111111111")
+  //   console.log(state)
+  // });
+  $('#user_country').change(function () {
+    var country = $(this).val();
+    console.log(country)
+    if (country) {
+     var state = $('#user_state').val(country);
+     console.log(state)
+    }
+  });
+</script>

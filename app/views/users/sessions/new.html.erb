@@ -1,0 +1,49 @@
+<div class="account-wrapper sign-up gray_bg">
+  <div class="container">
+    <div class="white_bg">
+      <h2 class="text-center main-ttl">Log In</h2>
+      <div class="account-wall">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+          <%if  alert %>
+            <p class="alert text-center invalid"><%= alert %></p>
+          <%end%>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email address", class: "form-control", required: true %>
+          <%= f.password_field :password, autocomplete: "current-password", placeholder: "Current password", class: "form-control", required: true %>
+          <% if devise_mapping.rememberable? -%>
+            <label class="custom-checkbox checkbox"> 
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+              <span class="checkmark"></span>
+              <%= link_to "Forgot Password?", new_password_path(resource_name), class: "pull-right" %>
+            </label>
+          <% end -%>
+          <div class="actions">
+            <%= f.submit "Log In", class: "button sign-btn" %>
+          </div>
+          <a class="join-yet">Didn't joined yet?</a>
+          <%= link_to "Sign up", new_registration_path(resource_name), class: "pull-right"%>
+        <% end %>
+        <div class="or"> <span>Or</span> </div>
+        <div class="social-media-btn">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col">
+              <% unless current_user %>
+                <%= link_to "", user_facebook_omniauth_authorize_path, class: "fb fa fa-facebook" %>
+              <% else %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+              <% end %> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col">
+              <% unless current_user %>
+                <%= link_to "", user_google_oauth2_omniauth_authorize_path, class: "google fa fa-google" %>
+              <% else %>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+              <% end %> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

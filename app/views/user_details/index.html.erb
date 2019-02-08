@@ -1,0 +1,81 @@
+<div class="user_info gray_bg">
+  <div class="container">
+    <div class="white_bg">
+      <div class="row">
+        <div class="col-lg-3 col-sm-4">
+          <div class="user_details">
+            <div class="user_image">
+              <%= form_for @userdetail do |f| %>
+                <%#= render 'medical_details', f: f %>
+                <%#abort @userdetail.inspect%>
+                <%= f.file_field :profile %>
+                <% if @userdetail.profile.present? %>
+                  <%= image_tag @userdetail.profile %>
+                <% else %>
+                  <%= image_tag "default.jpg" %>
+                <% end %>
+              <% end %>
+              <%#= link_to root_path do %>
+              <%# end %>
+            </div>
+            <div class="user_menu">
+              <ul>
+                <li><a href="#"><i class="fa fa-user"></i>Personal</a></li>
+                <li><a href="#"><i class="fa fa-edit"></i>My ad</a></li>
+                <li><a href="#"><i class="fa fa-medkit"></i>My health</a></li>
+                <li><a href="#"><i class="fa fa-id-card"></i>Identification</a></li>
+                <li><a href="#"><i class="fa fa-bell-o"></i>Notification</a></li>
+                <li><a href="#"><i class="fa fa-cog"></i>Security</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 col-sm-8">
+          <div class="user_form">
+            <section id="tabs">
+              <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist"> <a class="nav-item nav-link active" id="nav-personal-tab" data-toggle="tab" href="#nav-personal" role="tab" aria-controls="nav-personal" aria-selected="true">Personal</a> <a class="nav-item nav-link" id="nav-medical-tab" data-toggle="tab" href="#nav-medical" role="tab" aria-controls="nav-medical" aria-selected="false">Medical</a> <a class="nav-item nav-link" id="nav-identification-tab" data-toggle="tab" href="#nav-identification" role="tab" aria-controls="nav-identification" aria-selected="false">Identification</a> </div>
+              </nav>
+              <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+                	<div class="user_data">
+                		<%= form_for @userdetail do |f| %>
+						          <%= render 'personal_details', f: f %>
+					          <% end %>
+                	</div>
+                </div>
+                <div class="tab-pane fade" id="nav-medical" role="tabpanel" aria-labelledby="nav-medical-tab">
+                  <div class="user_data">
+                    <%= form_for @userdetail do |f| %>
+                      <%= render 'medical_details', f: f %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="nav-identification" role="tabpanel" aria-labelledby="nav-identification-tab">
+                  <div class="user_data user_identification">
+                    <%= form_for @userdetail do |f| %>
+                      <%= render 'identification_details', f: f %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .user_info .user_details .user_image{
+    position: relative;
+  }
+  .user_image input{
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    cursor: pointer;
+    width: 100%;
+  }
+</style>

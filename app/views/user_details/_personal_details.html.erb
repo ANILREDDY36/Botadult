@@ -1,0 +1,41 @@
+<div class="user_name"> <i class="fa fa-user"></i>
+	<%= f.text_field :user_name, class: "form-control", placeholder: "Username" %>
+</div>
+
+<div class="custom_dropdown">
+	<%= f.date_select :birthday, prompt: { day: t('.day'), month: t('.month'), year: t('.year') }, start_year: Date.today.year, end_year: Date.today.year - 100, order: [:month, :day, :year]%>
+</div>
+
+<div class="user_call"> <i class="fa fa-phone"></i>
+	<%= f.text_field :contact_number, class: "form-control" %>
+</div>
+
+<div class="user_msg"> <i class="fa fa-envelope"></i>
+	<div class="form-control">
+		<%= current_user.email%>
+	</div>
+</div>
+
+<div class="custom_dropdown">
+	<div class="row">
+  	<div class="col-lg-6 col-sm-6">
+      <div class="dropdown_box">
+      	<%= f.label :city %>
+				<%= f.text_field :city %>
+      	<%= f.label :state %>
+				<%= f.text_field :state %>
+      </div>
+  	</div>
+	</div>
+</div>
+
+<div class="save_cancel_btn">
+  <div class="row">
+    <div class="col-lg-6 col">
+      <!-- <button class="button" type="submit">Cancel</button> -->
+    </div>
+    <div class="col-lg-6 col">
+      <%= f.submit "Submit", class: "button" %>
+    </div>
+  </div>
+</div>

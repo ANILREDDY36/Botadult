@@ -1,0 +1,5 @@
+<h1>Show User Details</h1>
+<%= form_for @userdetail, url: user_detail_path(id: @userdetail.id) do |f| %>
+	<%= render 'medical_details', f: f %>
+	<%= image_tag @userdetail.medical_status %>
+<% end %>

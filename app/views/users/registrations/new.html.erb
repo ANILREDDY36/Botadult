@@ -1,0 +1,36 @@
+<div class="account-wrapper sign-up gray_bg">
+  <div class="container">
+    <div class="white_bg">
+      <h2 class="text-center main-ttl">Sign Up</h2>
+      <div class="account-wall">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email address", class: "form-control", required: true %>
+          <%= print_error(resource.errors, :email) %>
+          <% if @minimum_password_length %>
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password", class: "form-control", required: true %>
+            <%= print_error(resource.errors, :password) %>
+          <% end %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm password", class: "form-control", required: true %>
+          <%= print_error(resource.errors, :password_confirmation) %>
+          <label class="custom-checkbox checkbox">
+            <%= f.check_box :is_twentyone, required: true %>
+            <%= f.label :I_agree_that_i_am_21_years_older_or_older %>
+            <span class="checkmark"></span>
+          </label>
+          <%= print_error(resource.errors, :I_agree_that_i_am_21_years_older_or_older) %>
+          <label class="custom-checkbox checkbox">
+            <%= f.check_box :agree_terms_and_conditions, required: true %>
+            <%= f.label :I_agree_to_AdoltBit_s_Terms_and_Conditions  %>
+            <span class="checkmark"></span>
+          </label>
+          <%= print_error(resource.errors, :agree_terms_and_conditions) %>
+          <div class="actions">
+            <%= f.submit "Sign up", class: "button sign-btn" %>
+          </div>
+          <a class="join-yet">Already joined?</a>
+          <%= link_to "Log In", new_session_path(resource_name), class: "pull-right"%>
+        <% end %>  
+      </div>
+    </div>
+  </div>
+</div>
