@@ -67,3 +67,4 @@ gem 'jquery-rails'
 gem "font-awesome-rails"
 gem 'bootstrap', '~> 4.0.0'
 gem "mini_magick"
+gem 'intl-tel-input-rails'

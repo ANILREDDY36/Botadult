@@ -1,20 +1,45 @@
 <div class="user_name"> <i class="fa fa-user"></i>
 	<%= f.text_field :user_name, class: "form-control", placeholder: "Username" %>
+  <%= print_error(@userdetail.errors, :user_name) %>
 </div>
 
 <div class="custom_dropdown">
-	<%= f.date_select :birthday, prompt: { day: t('.day'), month: t('.month'), year: t('.year') }, start_year: Date.today.year, end_year: Date.today.year - 100, order: [:month, :day, :year]%>
+  <div class="row">
+    <div class="col-lg-12 col-sm-12">
+      <div class="dropdown_box">
+	     <%= f.date_select :birthday, prompt: { day: t('.day'), month: t('.month'), year: t('.year') }, start_year: Date.today.year, end_year: Date.today.year - 100, order: [:month, :day, :year]%>
+       <%= print_error(@userdetail.errors, :birthday) %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="user_call"> <i class="fa fa-phone"></i>
 	<%= f.text_field :contact_number, class: "form-control" %>
 </div>
 
+<!-- <div class="field"> -->
+  <!-- <div class="country_code_wrapper">
+    <div class="country_code_body">
+      <span class="country_code_customer full_info_country_code_customer none">+<%#= @country_code %></span>
+    </div> -->
+
+    <!-- <div class="country_code_form"> -->
+      <!-- <input type="tel" value="<%#= params[:user_detail] %>" id="onlyphoneyVal"> -->
+      <%#= f.hidden_field :contact_number, value: params[:user_detail][:contact_number], class: 'universal_bookings_form_for_phone', id: 'only_contact_number' %>
+      <%#= f.hidden_field :preferred_contact, value: 'emailsms' %>
+      <%#= f.hidden_field_tag :flag, true %>
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </div> -->
+
 <div class="user_msg"> <i class="fa fa-envelope"></i>
 	<div class="form-control">
 		<%= current_user.email%>
 	</div>
 </div>
+
+<%#= f.intl_tel_input(:contact_number) %>
 
 <div class="custom_dropdown">
 	<div class="row">
@@ -39,3 +64,58 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+  var country_code = $('.country_code_customer').text()
+console.log(country_code)
+var telponly = $("#onlyphoneyVal")
+telponly.intlTelInput({
+initialCountry: "auto",
+preferredCountries: [''],
+separateDialCode: true,
+  geoIpLookup: function(callback) {
+    $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+      var countryCode = (resp && resp.country) ? resp.country : "";
+      callback(countryCode);
+    });
+  },
+  utilsScript: "assets/libphonenumber/utils.js"
+});
+
+telponly.each(function () {
+  $(this).keyup(function () {
+    if(Math.floor($(this).val()) == $(this).val() || $.isNumeric($(this).val())) {
+      $('.country_code_customer').addClass('none')
+      telponly.intlTelInput({
+      initialCountry: "auto",
+      preferredCountries: [''],
+      separateDialCode: true,
+        geoIpLookup: function(callback) {
+          $.get('https://ipinfo.io', function() {}, "jsonp").always(function(resp) {
+            var countryCode = (resp && resp.country) ? resp.country : "";
+            callback(countryCode);
+          });
+        },
+        utilsScript: "assets/libphonenumber/utils.js"
+      })
+      var intlNumber = $(this).intlTelInput("getNumber")
+      $('#post_preferred_contact').val('emailsms')
+      $('.universal_bookings_form_for_phone').attr('id','only_contact_number')
+      $('.universal_bookings_form_for_phone').attr('name','contact_number')
+      $('#only_contact_number').val(intlNumber)
+
+    } else {
+      telponly.intlTelInput("destroy");
+      $('#onlyphoneyVal').focus();
+      $(this).next('input').val($(this).val())
+      $('.country_code_customer').removeClass('none')
+      $('.country_code_customer').text('@')
+      // // $('#emailForLabel').fadeIn()
+      $('#post_preferred_contact').val('email')
+      $('.universal_bookings_form_for_phone').attr('id','email')
+      $('.universal_bookings_form_for_phone').attr('name','email')
+    }
+  })
+})
+</script>

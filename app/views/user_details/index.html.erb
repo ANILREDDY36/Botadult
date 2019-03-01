@@ -6,17 +6,13 @@
           <div class="user_details">
             <div class="user_image">
               <%= form_for @userdetail do |f| %>
-                <%#= render 'medical_details', f: f %>
-                <%#abort @userdetail.inspect%>
-                <%= f.file_field :profile %>
-                <% if @userdetail.profile.present? %>
-                  <%= image_tag @userdetail.profile %>
-                <% else %>
-                  <%= image_tag "default.jpg" %>
-                <% end %>
+                <%= f.file_field :profile, onchange: 'this.form.submit()' %>
+                <%if @userdetail.profile.attached? %>
+                  <%= image_tag @userdetail.profile.variant(resize: '150x150') %>
+                <%else%>
+                  <%= image_tag "default.jpg"%>
+                <%end%>  
               <% end %>
-              <%#= link_to root_path do %>
-              <%# end %>
             </div>
             <div class="user_menu">
               <ul>

@@ -6,7 +6,11 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     omniauth_callbacks: 'users/omniauth_callbacks'
   } 
-  resources :user_details
+  resources :user_details do
+    collection do
+      get :verify_age
+    end
+  end
   resources :home
   root 'home#index'
   # get "*path" => redirect("/")

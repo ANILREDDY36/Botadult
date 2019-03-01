@@ -116,15 +116,14 @@ a.google {background: #e26667; display: block; text-align: center; color: #fff; 
 
 /*custom drop down*/
 
-.custom_dropdown .dropdown_box select {width: 100%; border: 1px solid #ddd; height: 35px; padding: 0 5px; -webkit-appearance: none; -moz-appearance: none; appearance:none; background:url(../images/down-arrow.png) no-repeat; background-position: 95%;}
-
+.custom_dropdown .dropdown_box select {width: 32.6%; border: 1px solid #ddd; height: 35px; padding: 0 5px; -webkit-appearance: none; -moz-appearance: none; appearance:none; background: url('/assets/down-arrow.png') no-repeat 0px 0px;  background-position: 95%;}
 /*User Info*/
 
 
 .header-icon .navbar-dark .navbar-nav .nav-item.active{background:#eee; border-radius:50px;}
 .user_info .white_bg{max-width:inherit; padding:0;}
 .user_info .user_details .user_image{height:100px; width:100px; background:#eee; border-radius:50%; overflow:hidden; margin:0 auto;}
-.user_info .user_details .user_image img{height:100%;}
+/*.user_info .user_details .user_image img{height:100%;}*/
 .user_info .user_details {box-shadow: 8px 0px 21px -2px #c2c1c1; padding: 35px 0; min-height:596px;}
 .user_info .user_details .user_menu{margin:30px 30px 0;}
 .user_info .user_details .user_menu li {padding: 10px 20px 20px;}
@@ -152,7 +151,7 @@ a.google {background: #e26667; display: block; text-align: center; color: #fff; 
 
 .user_info .user_form .custom_dropdown.medical_block,
 .user_info .user_form .identi_block{margin-top:20px;}
-.user_info .user_form .custom_dropdown.medical_block .dropdown_box select {background:url(../images/caret-down.png) no-repeat; background-position:98%;}
+.user_info .user_form .custom_dropdown.medical_block .dropdown_box select {background: url('/assets/caret-down.png') no-repeat;background-position:98%; width: -webkit-fill-available;}
 .user_info .user_form .custom_fileupload{border: 1px solid #ddd; padding: 0 5px; line-height: 33px;}
 .user_info .user_form .custom_fileupload input{display:none;}
 .user_info .user_form .custom_fileupload label{width:100%; position:relative;}
